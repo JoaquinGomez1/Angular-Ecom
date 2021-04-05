@@ -1,0 +1,52 @@
+<div class="container">
+  <h2 class="text-3xl font-bold text-gray-800 text-center my-4">
+    Your shopping cart
+  </h2>
+  <table class="w-full mt-6" *ngIf="cart.items.length > 0">
+    <tr class="bg-gray-800 p-4 text-gray-100 divide-x border-gray-400">
+      <th></th>
+      <th>Name</th>
+      <th>Units</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+    </tr>
+
+    <tr *ngFor="let product of cart.items" class="item">
+      <td (click)="cart.deleteFromCart(product.id)" class="cursor-pointer">
+        X
+      </td>
+      <td>{{ product.title }}</td>
+      <td>
+        {{ product.units }}
+        <input
+          type="number"
+          min="1"
+          max="{{ product.unitsInStock }}"
+          class="border border-gray-200 float-right mr-1"
+          value="{{ product.units }}"
+          (change)="cart.addUnitToProduct(product)"
+        />
+      </td>
+      <td>{{ product.price | currency: "USD" }}</td>
+      <td>{{ product.price * product.units | currency: "USD" }}</td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="border border-red-200 p-1">
+        Total: {{ cart.cartTotal | currency: "USD" }}
+      </td>
+    </tr>
+  </table>
+  <div class="mx-auto" *ngIf="cart.items.length <= 0">
+    <h2 class="text-2xl my-2">No items in the Cart</h2>
+    <a
+      class="text-red-500 px-4 py-1 border-2 font-bold border-red-500"
+      [routerLink]="['/']"
+      >Go back home</a
+    >
+  </div>
+</div>

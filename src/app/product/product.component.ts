@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/types';
 import { CartService } from '../cart.service';
 
@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
     this.routeId = this.route.snapshot.params['id'];
   }
 
-  addToCart(product) {
+  addToCart(product: Product): void {
     this.cart.addToCart(product);
   }
 }

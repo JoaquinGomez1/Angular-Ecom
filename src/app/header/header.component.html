@@ -1,4 +1,4 @@
-<header class="px-2 w-screen flex text-gray-100">
+<header class="px-2 w-screen flex text-gray-100 border-b-4 border-red-600">
   <!-- bg color and min heigth defined in scss file-->
   <div class="container grid items-center">
     <div class="flex justify-between w-full h-2">
@@ -36,7 +36,9 @@
       </div>
       <div class="flex space-x-4">
         <div>Whistlist</div>
-        <div>Shopping Cart: {{ cart.items.length }}</div>
+        <div>
+          <a [routerLink]="['cart']">Shopping Cart: {{ cart.items.length }}</a>
+        </div>
       </div>
     </div>
   </div>

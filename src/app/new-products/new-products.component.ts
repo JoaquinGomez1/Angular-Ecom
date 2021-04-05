@@ -29,7 +29,7 @@ export class NewProductsComponent implements OnInit {
     },
     {
       id: '3',
-      title: 'Mens adidas kalis running shoe',
+      title: 'Men´s adidas kalis running shoe',
       description: 'Kalis running shoe for men and men only',
       units: 3,
       price: 84,

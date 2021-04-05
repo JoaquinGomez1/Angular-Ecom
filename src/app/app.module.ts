@@ -12,6 +12,7 @@ import { CollectionsComponent } from './collections/collections.component';
 import { CollectionCardComponent } from './collection-card/collection-card.component';
 import { NewProductsComponent } from './new-products/new-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     CollectionsComponent,
     CollectionCardComponent,
     NewProductsComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
