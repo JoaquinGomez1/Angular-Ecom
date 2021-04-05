@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  constructor(public cart: CartService) {}
 
   ngOnInit(): void {
+    console.log(this.cart.items.length);
   }
-
 }

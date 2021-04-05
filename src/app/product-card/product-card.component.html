@@ -1,11 +1,18 @@
-<div class="relative overflow-hidden border w-full border-gray-200 rounded-sm">
-  <img
-    src="{{ product.img }}"
-    alt="{{ product.title }} image"
-    class="object-contain w-full h-48"
-  />
+<div
+  class="relative overflow-hidden hover:shadow border w-full border-gray-200 rounded-sm"
+>
+  <div class="pb-56 relative overflow-hidden card-image">
+    <a [routerLink]="['products', product.id]">
+      <img
+        src="{{ product.img }}"
+        alt="{{ product.title }} image"
+        class="object-fill absolute inset-0 w-full h-48"
+      />
+    </a>
+  </div>
+
   <div
-    class="capitalize px-2 truncate pt-2 pb-8 text-gray-600 font-bold bg-gray-200 border-b border-gray-600 border-opacity-10"
+    class="capitalize px-2 truncate pt-2 pb-8 text-gray-600 font-bold bg-gray-100 border-b border-gray-600 border-opacity-10"
   >
     {{ product.title }}
   </div>
@@ -19,7 +26,8 @@
       {{ product.price | currency: "USD" }}
     </p>
     <button
-      class="mt-16 mb-4 mx-auto border-2 block hover:border-blue-300 hover:text-blue-700 border-blue-500 rounded-sm text-blue-500 py-1 px-4"
+      (click)="cart.addToCart(product)"
+      class="outline-none mt-16 mb-4 mx-auto border-2 block hover:bg-blue-500 hover:text-white border-blue-500 rounded-sm text-blue-500 py-1 px-4"
     >
       Add To Cart
     </button>

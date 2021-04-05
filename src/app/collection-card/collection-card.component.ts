@@ -14,7 +14,5 @@ export class CollectionCardComponent implements OnInit {
   };
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.collection);
-  }
+  ngOnInit(): void {}
 }

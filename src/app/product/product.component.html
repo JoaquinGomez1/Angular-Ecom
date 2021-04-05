@@ -1,1 +1,62 @@
-<p>product works!</p>
+<div class="container px-2 flex">
+  <div class="w-1/2 relative mt-16">
+    <div class="pb-72 relative overflow-hidden card-image">
+      <img
+        src="{{ product.img }}"
+        alt="{{ product.title }} image"
+        class="object-fill absolute inset-0 w-full"
+      />
+    </div>
+  </div>
+  <div class="w-1/2 mt-16 px-8">
+    <h1 class="text-2xl font-bold text-gray-800 uppercase">
+      {{ product.title }}
+    </h1>
+    <div class="flex items-center">
+      <p>10 Review(s) | <span>Add your review</span></p>
+    </div>
+    <div class="flex items-baseline my-2">
+      <p class="text-3xl font-bold text-red-500">
+        {{ product.price | currency: "USD" }}
+      </p>
+      <div class="mx-8">
+        <p *ngIf="product.available" class="uppercase font-bold text-red-500">
+          In stock
+        </p>
+        <p *ngIf="!product.available" class="uppercase font-bold text-gray-500">
+          Out of stock
+        </p>
+      </div>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos enim
+      corrupti quidem odio saepe voluptates unde. Aut eaque ut ea? Vitae laborum
+      commodi esse, doloremque, accusamus aliquid impedit sunt doloribus
+      provident consequatur modi molestiae animi tempore beatae, sequi ut
+      placeat dolores harum quasi eaque praesentium sint. Possimus dignissimos
+      ut veniam hic exercitationem accusamus tempore voluptas odit, officia,
+      neque assumenda nihil!
+    </p>
+    <div class="flex items-center my-3">
+      <div class="flex items-center mr-8">
+        <p class="mr-3">QTY</p>
+        <input
+          class="border bg-gray-100"
+          type="number"
+          min="1"
+          max="{{ product.units }}"
+          value="1"
+        />
+      </div>
+
+      <div
+        class="rounded-full bg-red-500 font-bold hover:bg-red-600 cursor-pointer text-white uppercase px-8 py-2"
+        (click)="addToCart(product)"
+      >
+        Add to cart
+      </div>
+    </div>
+
+    <p>Category: Category</p>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+img {
+  transition: 0.3s ease-in-out all;
+}
+
+.card-image {
+  transition: 0.15s ease-in-out transform;
+
+  &:hover {
+    img {
+      transition: 0.15s ease-in-out transform;
+      animation: grow 0.15s ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
