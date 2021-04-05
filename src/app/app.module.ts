@@ -7,6 +7,11 @@ import { ProductComponent } from './product/product.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HeaderComponent } from './header/header.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CollectionsComponent } from './collections/collections.component';
+import { CollectionCardComponent } from './collection-card/collection-card.component';
+import { NewProductsComponent } from './new-products/new-products.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +19,12 @@ import { HeaderComponent } from './header/header.component';
     ProductComponent,
     HomeComponent,
     NavbarComponent,
-    HeaderComponent
+    HeaderComponent,
+    CategoriesComponent,
+    CollectionsComponent,
+    CollectionCardComponent,
+    NewProductsComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
