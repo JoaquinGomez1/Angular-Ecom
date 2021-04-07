@@ -9,7 +9,5 @@ import { CartService } from '../cart.service';
 export class HeaderComponent implements OnInit {
   constructor(public cart: CartService) {}
 
-  ngOnInit(): void {
-    console.log(this.cart.items.length);
-  }
+  ngOnInit(): void {}
 }

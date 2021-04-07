@@ -11,7 +11,7 @@ export class CartService {
   constructor(private tostr: ToastrService) {}
 
   // Gives me full control on when data will change
-  setItems(items): void {
+  private setItems(items): void {
     this.items = items;
     this.cartTotal = this.getTotal();
   }
@@ -44,8 +44,11 @@ export class CartService {
   changeUnitOfProduct(item: Product, ammount: number = 1): void {
     const indexOfItem = this.items.findIndex((each) => each.id === item.id);
     const itemsList = [...this.items];
+    const thisProduct = itemsList[indexOfItem];
 
-    itemsList[indexOfItem].units = ammount;
+    // only changes it if the number to change is available
+    thisProduct.units =
+      ammount <= thisProduct.unitsInStock ? ammount : thisProduct.units;
     this.setItems([...itemsList]);
   }
 
