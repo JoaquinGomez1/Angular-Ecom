@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
@@ -13,7 +16,8 @@ import { CollectionCardComponent } from './collection-card/collection-card.compo
 import { NewProductsComponent } from './new-products/new-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,13 +30,18 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     CollectionCardComponent,
     NewProductsComponent,
     ProductCardComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ToastrModule.forRoot({ timeOut: 2000, positionClass: 'toast-top-center' }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

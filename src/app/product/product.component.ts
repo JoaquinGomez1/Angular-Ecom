@@ -10,22 +10,26 @@ import { CartService } from '../cart.service';
 })
 export class ProductComponent implements OnInit {
   routeId: string;
+  units: number = 1;
+  unitsInStock: number = 8;
   product: Product = {
     id: '1',
     title: 'Playstation 4',
     description: 'With PS4 gaming becomes a lot more powerfull',
-    units: 8,
+    units: this.units,
+    unitsInStock: this.unitsInStock,
     price: 360,
     img: 'https://m.media-amazon.com/images/I/61OL2zIliML._AC_UY218_.jpg',
     available: true,
   };
 
-  constructor(private route: ActivatedRoute, private cart: CartService) {}
+  constructor(private route: ActivatedRoute, public cart: CartService) {}
   ngOnInit(): void {
     this.routeId = this.route.snapshot.params['id'];
   }
 
-  addToCart(product: Product): void {
-    this.cart.addToCart(product);
+  setNumberOfUnits(qty: number): void {
+    console.log(qty);
+    this.product.units = qty;
   }
 }

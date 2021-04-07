@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from 'src/types';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { Product } from 'src/types';
 export class CartService {
   items: Array<Product> = [];
   cartTotal: number = 0;
-  constructor() {}
+  constructor(private tostr: ToastrService) {}
 
   // Gives me full control on when data will change
   setItems(items): void {
@@ -15,7 +16,7 @@ export class CartService {
     this.cartTotal = this.getTotal();
   }
 
-  addToCart(item: Product): void {
+  addToCart(item: Product, units: number = 1): void {
     const indexOfItem = this.items.findIndex((each) => each.id === item.id);
     const itemsList = [...this.items];
     const itemExistsOnCart = indexOfItem !== -1;
@@ -25,20 +26,32 @@ export class CartService {
     } else
       this.setItems([
         ...itemsList,
-        { ...item, units: 1, unitsInStock: item.units },
+        { ...item, units, unitsInStock: item.units },
       ]);
+
+    this.tostr.success('Product added successfully');
   }
 
-  addUnitToProduct(item: Product, ammount: number = 1): void {
+  addUnitToProduct(item: Product): void {
+    if (item.units >= item.unitsInStock) return; // Prevents to add beyond the limit
     const indexOfItem = this.items.findIndex((each) => each.id === item.id);
     const itemsList = [...this.items];
 
-    itemsList[indexOfItem].units += ammount;
+    itemsList[indexOfItem].units += 1;
+    this.setItems([...itemsList]);
+  }
+
+  changeUnitOfProduct(item: Product, ammount: number = 1): void {
+    const indexOfItem = this.items.findIndex((each) => each.id === item.id);
+    const itemsList = [...this.items];
+
+    itemsList[indexOfItem].units = ammount;
     this.setItems([...itemsList]);
   }
 
   clearCart(): void {
     this.items = [];
+    this.tostr.success('Cart deleted succesfully');
   }
 
   deleteFromCart(id: string): void {
@@ -47,6 +60,7 @@ export class CartService {
 
     myItems.splice(indexOfItem, 1);
     this.setItems(myItems);
+    this.tostr.success('Product deleted succesfully');
   }
 
   getTotal(): number {

@@ -1,0 +1,66 @@
+<div class="container grid grid-cols-5 pt-10">
+  <div class="col-span-3 px-4">
+    <h1 class="text-3xl font-bold mb-4 text-gray-800 uppercase">
+      Billing Information
+    </h1>
+    <form [formGroup]="myForm">
+      <div *ngFor="let field of formArray">
+        <input
+          class="w-full p-2 border border-gray-200 outline-none mt-4"
+          [class.border-red-500]="field.values.touched && field.values.invalid"
+          placeholder="{{ field.name }}*"
+          formControlName="{{ field.name }}"
+        />
+        <div
+          class="p-2 bg-red-100 text-gray-700 w-full"
+          *ngIf="field.values.touched && field.values.invalid"
+        >
+          <p *ngIf="field.values.errors?.required">required field</p>
+          <p *ngIf="field.values.errors?.minLength">
+            Field length is too short
+          </p>
+          <p *ngIf="field.values.errors?.maxLength">
+            Field length is too large
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-span-2 p-6 border border-gray-200">
+    <h1 class="text-3xl font-bold text-gray-800 uppercase text-center">
+      Your order
+    </h1>
+    <div class="flex justify-between mt-4">
+      <p class="font-bold uppercase text-lg text-gray-800">Product</p>
+      <p class="font-bold text-lg text-gray-800">SubTotal</p>
+    </div>
+    <div class="flex justify-between mt-4" *ngFor="let product of cart.items">
+      <p class="text-gray-800 w-72">{{ product.units }}x {{ product.title }}</p>
+      <p class="text-gray-800">
+        {{ product.units * product.price | currency: "USD" }}
+      </p>
+    </div>
+    <div class="flex justify-between mt-4">
+      <p class="text-gray-800 w-72">Shipping</p>
+      <p class="font-bold uppercase text-gray-800">Free</p>
+    </div>
+    <hr class="my-3" />
+    <div class="flex justify-between mt-4 mb-16">
+      <p class="text-gray-800 uppercase font-bold text-xl">total</p>
+      <p class="font-bold uppercase text-2xl text-red-600">
+        {{ cart.cartTotal | currency: "USD" }}
+      </p>
+    </div>
+    <button
+      [disabled]="myForm.invalid && orderPlaced"
+      (click)="placeOrder()"
+      class="border-4 font-bold cursor-pointer text-center w-full border-red-500 hover:bg-red-500 hover:text-white px-4 py-2"
+      ngClass="{
+        'border-gray-500 cursor-default hover:bg-white hover:text-gray-800':
+          myForm.invalid
+      }"
+    >
+      Place order
+    </button>
+  </div>
+</div>

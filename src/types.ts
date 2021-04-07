@@ -6,4 +6,5 @@ export type Product = {
   price: number;
   img?: string | undefined;
   available?: boolean;
+  unitsInStock?: number;
 };

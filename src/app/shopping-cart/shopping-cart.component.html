@@ -8,12 +8,12 @@
       <th>Name</th>
       <th>Units</th>
       <th>Price</th>
-      <th>Subtotal</th>
+      <th class="w-20 whitespace-nowrap">Subtotal</th>
     </tr>
 
     <tr *ngFor="let product of cart.items" class="item">
       <td (click)="cart.deleteFromCart(product.id)" class="cursor-pointer">
-        X
+        <i class="fas fa-trash-alt text-red-500"></i>
       </td>
       <td>{{ product.title }}</td>
       <td>
@@ -24,23 +24,46 @@
           max="{{ product.unitsInStock }}"
           class="border border-gray-200 float-right mr-1"
           value="{{ product.units }}"
-          (change)="cart.addUnitToProduct(product)"
+          (change)="cart.changeUnitOfProduct(product, $event.target.value)"
         />
       </td>
       <td>{{ product.price | currency: "USD" }}</td>
-      <td>{{ product.price * product.units | currency: "USD" }}</td>
+      <td class="w-20 overflow-auto whitespace-nowrap">
+        {{ product.price * product.units | currency: "USD" }}
+      </td>
     </tr>
 
     <tr>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td class="border border-red-200 p-1">
-        Total: {{ cart.cartTotal | currency: "USD" }}
-      </td>
     </tr>
   </table>
+
+  <div
+    *ngIf="cart.items.length > 0"
+    class="flex justify-end w-full items-center"
+  >
+    <div
+      class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-3 text-center py-1 cursor-pointer"
+      (click)="cart.clearCart()"
+    >
+      <i class="fas fa-minus-circle mr-3"></i>
+      Clear
+    </div>
+    <a [routerLink]="['/checkout']">
+      <div
+        class="border-2 py-1 px-3 border-green-400 text-green-400 hover:text-white hover:bg-green-400 text-center cursor-pointer"
+      >
+        Checkout
+        <i class="fas fa-arrow-right ml-3"></i>
+      </div>
+    </a>
+
+    <div class="border px-3 border-red-200 py-1">
+      Total: {{ cart.cartTotal | currency: "USD" }}
+    </div>
+  </div>
+  <!-- If there are no items in the cart ↓-->
   <div class="mx-auto" *ngIf="cart.items.length <= 0">
     <h2 class="text-2xl my-2">No items in the Cart</h2>
     <a

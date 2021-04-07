@@ -44,14 +44,15 @@
           class="border bg-gray-100"
           type="number"
           min="1"
-          max="{{ product.units }}"
-          value="1"
+          value="{{ product.units }}"
+          max="{{ product.unitsInStock }}"
+          (change)="setNumberOfUnits($event.target.value)"
         />
       </div>
 
       <div
         class="rounded-full select-none bg-red-500 font-bold hover:bg-red-600 cursor-pointer text-white uppercase px-8 py-2"
-        (click)="addToCart(product)"
+        (click)="cart.addToCart(product, product.units)"
       >
         Add to cart
       </div>
