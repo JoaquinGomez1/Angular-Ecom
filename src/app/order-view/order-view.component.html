@@ -1,0 +1,50 @@
+<div class="container pt-6">
+  <h1 class="text-4xl text-center font-bold text-green-400">
+    Congratulations!
+  </h1>
+  <p class="text-2xl text-center text-gray-700">
+    And thank you
+    <span class="text-red-500">{{ order.customerData?.firstName }}</span> for
+    your purchase
+  </p>
+  <h2 class="text-xl text-center text-gray-600">
+    Your order has been accepted
+  </h2>
+
+  <h3 class="text-center mt-8 text-gray-600 text-lg">Order Number: 106</h3>
+  <table class="w-full mt-6 border border-gray-300">
+    <tr class="bg-gray-800 p-4 text-gray-100 divide-x border-gray-400">
+      <th>Name</th>
+      <th>Units</th>
+      <th>Price</th>
+      <th class="w-20 whitespace-nowrap">Subtotal</th>
+    </tr>
+
+    <tr *ngFor="let product of order.orderData" class="item">
+      <td>{{ product.title }}</td>
+      <td class="text-center font-bold">
+        {{ product.units }}
+      </td>
+      <td class="text-center font-bold">
+        {{ product.price | currency: "USD" }}
+      </td>
+      <td class="w-20 overflow-auto whitespace-nowrap text-center font-bold">
+        {{ product.price * product.units | currency: "USD" }}
+      </td>
+    </tr>
+  </table>
+
+  <p class="mt-2 font-bold">
+    Shipping Address: {{ order.customerData?.address }},{{
+      order.customerData?.city
+    }}
+  </p>
+  <p class="my-2 font-bold">
+    In case it's needed you will be contacted at the given number:
+    {{ order.customerData?.phoneNumber }}
+  </p>
+  <h2 class="text-3xl font-bold mt-4">
+    Total:
+    <span class="text-green-400">{{ order.orderTotal | currency: "USD" }}</span>
+  </h2>
+</div>

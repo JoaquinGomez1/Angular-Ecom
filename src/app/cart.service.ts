@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CartService {
   items: Array<Product> = [];
   cartTotal: number = 0;
+  orderPlaced: boolean = false;
+
   constructor(private tostr: ToastrService) {}
 
   // Gives me full control on when data will change

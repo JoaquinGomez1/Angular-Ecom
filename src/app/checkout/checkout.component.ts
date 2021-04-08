@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -12,13 +13,13 @@ import { ToastrService } from 'ngx-toastr';
 export class CheckoutComponent implements OnInit {
   myForm: FormGroup;
   formArray: Array<any>;
-  orderPlaced: boolean = false;
 
   constructor(
     public cart: CartService,
     private router: Router,
     private formGroup: FormBuilder,
-    private tostr: ToastrService
+    private tostr: ToastrService,
+    private order: OrderService
   ) {}
 
   ngOnInit(): void {
@@ -49,19 +50,28 @@ export class CheckoutComponent implements OnInit {
       values,
     }));
 
-    // this.myForm.valueChanges.subscribe(() => console.log(this.myForm));
+    // this.myForm.valueChanges.subscribe(() =>
+    //   console.log(JSON.stringify(this.myForm.value, null, 2))
+    // );
     if (this.cart.items.length <= 0) {
       this.router.navigate(['/']);
     }
   }
 
   placeOrder() {
-    if (this.myForm.invalid || this.orderPlaced) {
+    if (this.myForm.invalid || this.cart.orderPlaced) {
       this.tostr.error('Invalid Input or order already placed');
       return;
     }
 
-    this.orderPlaced = true;
-    this.tostr.success('Order placed successfully');
+    this.cart.orderPlaced = true;
+    this.tostr.success(
+      'We will now proceed to validate your data',
+      'Order accepted'
+    );
+    this.order.orderData = this.cart.items;
+    this.order.orderTotal = this.cart.cartTotal;
+    this.order.customerData = this.myForm.value;
+    this.router.navigate(['/order']);
   }
 }

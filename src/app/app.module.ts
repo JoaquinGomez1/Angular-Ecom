@@ -18,6 +18,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { OrderViewComponent } from './order-view/order-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ProductCardComponent,
     ShoppingCartComponent,
     CheckoutComponent,
+    OrderViewComponent,
   ],
   imports: [
     BrowserModule,
