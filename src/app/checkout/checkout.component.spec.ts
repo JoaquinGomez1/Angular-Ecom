@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 
 import { CheckoutComponent } from './checkout.component';
 
@@ -8,9 +10,9 @@ describe('CheckoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CheckoutComponent ]
-    })
-    .compileComponents();
+      imports: [ToastrModule.forRoot(), Router],
+      declarations: [CheckoutComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

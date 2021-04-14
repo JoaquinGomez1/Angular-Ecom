@@ -1,1 +1,8 @@
-<p>categories works!</p>
+<div
+  class="container pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 items-center justify-between flex-wrap"
+>
+  <app-collection-card
+    *ngFor="let category of categories | async"
+    [collection]="category"
+  ></app-collection-card>
+</div>

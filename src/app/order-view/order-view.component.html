@@ -4,15 +4,17 @@
   </h1>
   <p class="text-2xl text-center text-gray-700">
     And thank you
-    <span class="text-red-500">{{ order.customerData?.firstName }}</span> for
-    your purchase
+    <span class="text-green-500 font-bold">{{
+      order.customerData?.firstName
+    }}</span>
+    for your purchase
   </p>
   <h2 class="text-xl text-center text-gray-600">
     Your order has been accepted
   </h2>
 
   <h3 class="text-center mt-8 text-gray-600 text-lg">Order Number: 106</h3>
-  <table class="w-full mt-6 border border-gray-300">
+  <table class="w-full my-6 border border-gray-300">
     <tr class="bg-gray-800 p-4 text-gray-100 divide-x border-gray-400">
       <th>Name</th>
       <th>Units</th>
@@ -35,9 +37,8 @@
   </table>
 
   <p class="mt-2 font-bold">
-    Shipping Address: {{ order.customerData?.address }},{{
-      order.customerData?.city
-    }}
+    Shipping Address: {{ order.customerData?.address }},
+    {{ order.customerData?.city }}
   </p>
   <p class="my-2 font-bold">
     In case it's needed you will be contacted at the given number:

@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from './cart.service';
 
-describe('CartService', () => {
+fdescribe('CartService', () => {
   let service: CartService;
   const testProduct = {
     id: '1',
@@ -15,7 +16,9 @@ describe('CartService', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ToastrService],
+    });
     service = TestBed.inject(CartService);
   });
 

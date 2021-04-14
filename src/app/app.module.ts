@@ -19,6 +19,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrderViewComponent } from './order-view/order-view.component';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { OrderViewComponent } from './order-view/order-view.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     ToastrModule.forRoot({ timeOut: 2000, positionClass: 'toast-top-center' }),
   ],
   providers: [],

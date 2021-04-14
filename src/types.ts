@@ -18,3 +18,10 @@ export type CustomerOwner = {
   city: string;
   zipCode: string;
 };
+
+export type Collection = {
+  id: number;
+  name: string;
+  img: string;
+  available?: boolean;
+};
