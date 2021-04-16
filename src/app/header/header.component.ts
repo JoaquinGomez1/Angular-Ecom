@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Collection } from 'src/types';
 import { CartService } from '../cart.service';
+import { CollectionsService } from '../collections.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,21 @@ import { CartService } from '../cart.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public cart: CartService) {}
+  showCategories: boolean = true;
+  collections: Array<Collection>;
+  constructor(
+    public cart: CartService,
+    private collectionService: CollectionsService
+  ) {}
+  ngOnInit(): void {
+    this.collectionService.collectionsArray.subscribe(
+      (res: Array<Collection>) => {
+        this.collections = res;
+      }
+    );
+  }
 
-  ngOnInit(): void {}
+  toggleCategoriesView() {
+    this.showCategories = !this.showCategories;
+  }
 }

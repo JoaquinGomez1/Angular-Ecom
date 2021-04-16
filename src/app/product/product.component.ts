@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { BASE_ROOT } from 'src/localconfig';
 import { Product } from 'src/types';
 import { CartService } from '../cart.service';
 
@@ -10,26 +13,30 @@ import { CartService } from '../cart.service';
 })
 export class ProductComponent implements OnInit {
   routeId: string;
-  units: number = 1;
-  unitsInStock: number = 8;
-  product: Product = {
-    id: '1',
-    title: 'Playstation 4',
-    description: 'With PS4 gaming becomes a lot more powerfull',
-    units: this.units,
-    unitsInStock: this.unitsInStock,
-    price: 360,
-    img: 'https://m.media-amazon.com/images/I/61OL2zIliML._AC_UY218_.jpg',
-    available: true,
-  };
+  product: Product | undefined; // Allow undefined values in case product is not defined
+  response: Observable<any>;
+  isPageLoading: boolean = true;
 
-  constructor(private route: ActivatedRoute, public cart: CartService) {}
+  constructor(
+    private route: ActivatedRoute,
+    public cart: CartService,
+    private http: HttpClient
+  ) {}
+
   ngOnInit(): void {
     this.routeId = this.route.snapshot.params['id'];
+    this.response = this.http.get(BASE_ROOT + `/product/${this.routeId}`);
+
+    // Set products as the result of the observable;
+    this.response.subscribe((res) => {
+      this.product = res;
+      // Change the values since the units in the DB are the unitsInStock
+      this.product.unitsInStock = this.product.units;
+      this.product.units = 1;
+    });
   }
 
   setNumberOfUnits(qty: number): void {
-    console.log(qty);
-    this.product.units = qty;
+    if (this.product) this.product.units = qty;
   }
 }

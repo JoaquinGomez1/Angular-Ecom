@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { ToastrService } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { CartService } from './cart.service';
 
-fdescribe('CartService', () => {
+describe('CartService', () => {
   let service: CartService;
   const testProduct = {
     id: '1',
@@ -17,7 +18,14 @@ fdescribe('CartService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ToastrService],
+      imports: [
+        ToastrModule.forRoot({
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+        }),
+        BrowserAnimationsModule,
+      ],
+      providers: [ToastrService],
     });
     service = TestBed.inject(CartService);
   });
@@ -45,7 +53,7 @@ fdescribe('CartService', () => {
     expect(service.items[0].units).toBe(3);
   });
 
-  it('should add a product and then change the ammount of units', () => {
+  it('should add a product and then change the ammount of units of the product', () => {
     service.addToCart(testProduct);
     expect(service.items.length).toBe(1);
 
@@ -53,7 +61,7 @@ fdescribe('CartService', () => {
     expect(service.items[0].units).toBe(6);
   });
 
-  it('should add a product and then NOT change the ammount of units', () => {
+  it('should add a product and then NOT change the ammount of units of the product', () => {
     service.addToCart(testProduct);
     expect(service.items.length).toBe(1);
 

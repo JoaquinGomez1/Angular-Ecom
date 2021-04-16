@@ -58,7 +58,10 @@
     </div>
   </div>
   <!-- If there are no items in the cart ↓-->
-  <div class="mx-auto" *ngIf="cart.items.length <= 0">
+  <div
+    class="flex flex-col items-center space-y-2"
+    *ngIf="cart.items.length <= 0"
+  >
     <h2 class="text-2xl my-2">No items in the Cart</h2>
     <a
       class="text-red-500 px-4 py-1 border-2 font-bold border-red-500"

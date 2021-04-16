@@ -1,8 +1,19 @@
-<div
-  class="container pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 items-center justify-between flex-wrap"
->
-  <app-collection-card
-    *ngFor="let category of categories | async"
-    [collection]="category"
-  ></app-collection-card>
+<div class="container py-10">
+  <h2
+    class="text-gray-800 font-bold text-3xl text-center"
+    *ngIf="!collections?.length"
+  >
+    Loading
+  </h2>
+  <h1 class="text-4xl font-bold text-red-500 text-center mb-8">
+    Browse our collections
+  </h1>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 items-center justify-between flex-wrap"
+  >
+    <app-collection-card
+      *ngFor="let category of collections"
+      [collection]="category"
+    ></app-collection-card>
+  </div>
 </div>
