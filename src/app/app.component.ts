@@ -11,6 +11,7 @@ import { BASE_ROOT } from '../localconfig';
 })
 export class AppComponent implements OnInit {
   categories: Observable<any>;
+  products: Observable<any>;
   isPetitionLoading: boolean = true;
   title: string = 'Angular Ecommerce';
 
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories = this.http.get(BASE_ROOT + '/collections');
+    this.products = this.http.get(BASE_ROOT + '/products');
     this.collectionService.collectionsArray = this.categories;
   }
 }

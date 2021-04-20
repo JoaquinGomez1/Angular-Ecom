@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BASE_ROOT } from 'src/localconfig';
 import { Product } from '../../types';
 
 @Component({
@@ -37,7 +39,12 @@ export class NewProductsComponent implements OnInit {
       available: true,
     },
   ];
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const observable = this.http.get(BASE_ROOT + '/products?newest=true');
+    observable.subscribe(
+      (data: Product[]) => (this.productsList = data.slice(0, 3))
+    );
+  }
 }

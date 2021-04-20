@@ -3,17 +3,17 @@
   <div class="container grid items-center">
     <div class="flex justify-between w-full h-2">
       <div class="flex space-x-4 flex-col md:flex-row">
-        <p><i class="fas fa-phone text-red-500 mr-1"></i>+35201604521</p>
+        <p><i class="fas fa-phone text-red-500 mr-1"></i>+123123123213</p>
         <p><i class="fas fa-envelope text-red-500 mr-1"></i>email@email.com</p>
         <p>
           <i class="fas fa-map-marker-alt text-red-500 mr-1"></i>1234 random
           street
         </p>
       </div>
-      <div class="flex space-x-4">
+      <!-- <div class="flex space-x-4">
         <p>USD</p>
         <p>My Account</p>
-      </div>
+      </div> -->
     </div>
 
     <div class="flex justify-between items-center">
@@ -22,8 +22,10 @@
       </h1>
       <div class="items-center h-10 hidden md:flex relative">
         <div
+          tabindex="0"
           class="rounded-tl-full cursor-pointer select-none rounded-bl-full px-3 bg-gray-100 text-black py-2 h-full flex items-center"
-          (click)="toggleCategoriesView()"
+          (focus)="toggleCategoriesView(true)"
+          (focusout)="toggleCategoriesView(false)"
         >
           <p>All Categories</p>
 
@@ -46,9 +48,12 @@
         <input
           class="px-3 py-1 w-64 outline-none rounded-none h-full text-gray-800"
           placeholder="Search item"
+          (keydown)="setSearchValue($event)"
         />
         <div
+          tabindex="0"
           class="bg-red-500 h-full text-white text-center px-3 py-2 rounded-tr-full rounded-br-full"
+          (click)="searchProduct()"
         >
           <p>Search</p>
         </div>

@@ -25,7 +25,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeId = this.route.snapshot.params['id'];
-    this.response = this.http.get(BASE_ROOT + `/product/${this.routeId}`);
+
+    this.response = this.http.get(BASE_ROOT + `/products/${this.routeId}`);
 
     // Set products as the result of the observable;
     this.response.subscribe((res) => {

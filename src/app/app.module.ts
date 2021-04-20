@@ -20,6 +20,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrderViewComponent } from './order-view/order-view.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     ShoppingCartComponent,
     CheckoutComponent,
     OrderViewComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,

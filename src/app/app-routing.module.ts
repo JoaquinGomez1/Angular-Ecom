@@ -6,9 +6,11 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderViewComponent } from './order-view/order-view.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'products', component: ProductListComponent, pathMatch: 'full' },
   { path: 'products/:id', component: ProductComponent, pathMatch: 'full' },
   { path: 'categories', component: CategoriesComponent, pathMatch: 'full' },
   { path: 'cart', component: ShoppingCartComponent, pathMatch: 'full' },
