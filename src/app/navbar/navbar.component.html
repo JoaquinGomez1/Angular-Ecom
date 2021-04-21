@@ -1,21 +1,13 @@
 <nav class="flex px-2 bg-gray-50 border-b border-gray-200">
   <div class="container flex space-x-4">
     <a
-      routerLink="/"
+      *ngFor="let link of navLinks"
+      routerLink="{{ link.url }}"
       routerLinkActive="border-red-500 text-red-500 font-bold"
-      class="p-1 my-2 border-b-2"
-      [routerLinkActiveOptions]="{ exact: true }"
+      class="p-1 my-2 border-b-2 capitalize"
+      [routerLinkActiveOptions]="{ exact: link.exact }"
     >
-      Home
+      {{ link.name }}
     </a>
-    <a
-      routerLink="/categories"
-      [routerLinkActiveOptions]="{ exact: true }"
-      routerLinkActive="border-red-500 text-red-500 font-bold"
-      class="p-1 my-2 border-b-2"
-      >Categories</a
-    >
-    <a class="p-1 my-2 border-b-2">Games</a>
-    <a class="p-1 my-2 border-b-2">Contact Us</a>
   </div>
 </nav>

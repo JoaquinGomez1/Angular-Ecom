@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { BASE_ROOT } from 'src/localconfig';
 import { Collection } from 'src/types';
 import { CartService } from '../cart.service';
 import { CollectionsService } from '../collections.service';
@@ -19,7 +17,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     public cart: CartService,
     private collectionService: CollectionsService,
-    private http: HttpClient,
     private router: Router
   ) {}
   ngOnInit(): void {

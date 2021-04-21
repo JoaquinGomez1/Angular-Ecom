@@ -4,6 +4,10 @@ import { CartService } from '../cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../order.service';
+import { HttpClient } from '@angular/common/http';
+import { BASE_ROOT } from 'src/localconfig';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -19,7 +23,8 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private formGroup: FormBuilder,
     private tostr: ToastrService,
-    private order: OrderService
+    private order: OrderService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -50,9 +55,6 @@ export class CheckoutComponent implements OnInit {
       values,
     }));
 
-    // this.myForm.valueChanges.subscribe(() =>
-    //   console.log(JSON.stringify(this.myForm.value, null, 2))
-    // );
     if (this.cart.items.length <= 0) {
       this.router.navigate(['/']);
     }
@@ -63,15 +65,38 @@ export class CheckoutComponent implements OnInit {
       this.tostr.error('Invalid Input or order already placed');
       return;
     }
+    const orderData = this.formArray.map(({ name, values }) => ({
+      name,
+      value: values.value,
+    }));
+    const requestBody = {
+      orderData,
+      products: this.cart.items,
+    };
+    const FETCH_URL = BASE_ROOT + '/orders';
 
-    this.cart.orderPlaced = true;
-    this.tostr.success(
-      'We will now proceed to validate your data',
-      'Order accepted'
+    const observerResponse = this.http.post(FETCH_URL, requestBody, {
+      observe: 'response',
+    });
+
+    observerResponse.pipe(catchError((err) => of([]))).subscribe(
+      (err) => this.tostr.error('Something went wrong'),
+      (res) => {
+        if (res.status < 300 && res.status >= 200) {
+          this.cart.orderPlaced = true;
+          this.tostr.success(
+            'We will now proceed to validate your data',
+            'Order accepted'
+          );
+
+          this.cart.items = [];
+          this.order.orderData = this.cart.items;
+          this.order.orderTotal = this.cart.cartTotal;
+          this.order.customerData = this.myForm.value;
+          this.router.navigate(['/order']);
+          return;
+        }
+      }
     );
-    this.order.orderData = this.cart.items;
-    this.order.orderTotal = this.cart.cartTotal;
-    this.order.customerData = this.myForm.value;
-    this.router.navigate(['/order']);
   }
 }
