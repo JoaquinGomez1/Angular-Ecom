@@ -21,6 +21,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrderViewComponent } from './order-view/order-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './product-list/product-list.component';
+import { CollectionIdComponent } from './collection-id/collection-id.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProductListComponent } from './product-list/product-list.component';
     CheckoutComponent,
     OrderViewComponent,
     ProductListComponent,
+    CollectionIdComponent,
   ],
   imports: [
     BrowserModule,

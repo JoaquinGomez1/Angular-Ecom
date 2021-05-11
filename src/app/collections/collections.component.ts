@@ -14,9 +14,9 @@ export class CollectionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionService.collectionsArray.subscribe(
-      (res: Array<Collection>) => {
+      (data: Array<Collection>) => {
         const maxNumberOfCollections = 3;
-        this.collectionList = res.slice(0, maxNumberOfCollections);
+        this.collectionList = data.slice(0, maxNumberOfCollections);
       }
     );
   }

@@ -7,12 +7,18 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderViewComponent } from './order-view/order-view.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { CollectionIdComponent } from './collection-id/collection-id.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'products', component: ProductListComponent, pathMatch: 'full' },
   { path: 'products/:id', component: ProductComponent, pathMatch: 'full' },
   { path: 'collections', component: CategoriesComponent, pathMatch: 'full' },
+  {
+    path: 'collections/:id',
+    component: CollectionIdComponent,
+    pathMatch: 'full',
+  },
   { path: 'cart', component: ShoppingCartComponent, pathMatch: 'full' },
   { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
   { path: 'order', component: OrderViewComponent, pathMatch: 'full' },

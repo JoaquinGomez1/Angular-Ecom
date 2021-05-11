@@ -13,7 +13,9 @@
     Your order has been accepted
   </h2>
 
-  <h3 class="text-center mt-8 text-gray-600 text-lg">Order Number: 106</h3>
+  <h3 class="text-center mt-8 text-gray-600 text-lg">
+    Order Number: {{ order.customerData.id }}
+  </h3>
   <table class="w-full my-6 border border-gray-300">
     <tr class="bg-gray-800 p-4 text-gray-100 divide-x border-gray-400">
       <th>Name</th>
@@ -42,7 +44,7 @@
   </p>
   <p class="my-2 font-bold">
     In case it's needed you will be contacted at the given number:
-    {{ order.customerData?.phoneNumber }}
+    {{ order.customerData?.phoneNumber || order.customerData.phone }}
   </p>
   <h2 class="text-3xl font-bold mt-4">
     Total:

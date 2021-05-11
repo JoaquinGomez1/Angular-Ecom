@@ -25,3 +25,29 @@ export type Collection = {
   img: string;
   available?: boolean;
 };
+
+export type Order =
+  | {
+      id?: number;
+      customerName?: string;
+      firstName?: never;
+      lastName?: never;
+      email: string;
+      address: string;
+      phone: string;
+      phoneNumber?: string;
+      city: string;
+      zipCode: string;
+    }
+  | {
+      id?: number;
+      customerName?: never;
+      firstName?: string;
+      lastName?: string;
+      email: string;
+      address: string;
+      phone?: string;
+      phoneNumber?: string;
+      city: string;
+      zipCode: string;
+    };

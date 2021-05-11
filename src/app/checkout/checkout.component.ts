@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { BASE_ROOT } from 'src/localconfig';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Order, Product } from 'src/types';
 
 @Component({
   selector: 'app-checkout',
@@ -36,7 +37,7 @@ export class CheckoutComponent implements OnInit {
         [Validators.required, Validators.minLength(4), Validators.email],
       ],
       address: ['', [Validators.required, Validators.minLength(8)]],
-      phoneNumber: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       city: ['', [Validators.required, Validators.minLength(3)]],
       zipCode: [
         '',
@@ -65,12 +66,24 @@ export class CheckoutComponent implements OnInit {
       this.tostr.error('Invalid Input or order already placed');
       return;
     }
-    const orderData = this.formArray.map(({ name, values }) => ({
+
+    // Create array of entries to be later converted into an orderData Object
+    const orderData = this.formArray.map(({ name, values }) => [
       name,
-      value: values.value,
-    }));
+      values.value,
+    ]);
+
+    // convert to object of type orderData
+    const orderDataObject: Order = this.ObjectFromEntries(orderData);
+    orderDataObject.customerName =
+      orderDataObject.firstName + orderDataObject.lastName;
+
+    // We only need to send customer name to our Backend so we delete these two properties
+    delete orderDataObject.firstName;
+    delete orderDataObject.lastName;
+
     const requestBody = {
-      orderData,
+      orderData: orderDataObject,
       products: this.cart.items,
     };
     const FETCH_URL = BASE_ROOT + '/orders';
@@ -79,24 +92,30 @@ export class CheckoutComponent implements OnInit {
       observe: 'response',
     });
 
-    observerResponse.pipe(catchError((err) => of([]))).subscribe(
-      (err) => this.tostr.error('Something went wrong'),
-      (res) => {
-        if (res.status < 300 && res.status >= 200) {
-          this.cart.orderPlaced = true;
-          this.tostr.success(
-            'We will now proceed to validate your data',
-            'Order accepted'
-          );
+    observerResponse.subscribe((res) => {
+      console.log(res.body);
+      if (res.status < 300 && res.status >= 200) {
+        this.cart.orderPlaced = true;
+        this.tostr.success(
+          'We will now proceed to validate your data',
+          'Order accepted'
+        );
 
-          this.cart.items = [];
-          this.order.orderData = this.cart.items;
-          this.order.orderTotal = this.cart.cartTotal;
-          this.order.customerData = this.myForm.value;
-          this.router.navigate(['/order']);
-          return;
-        }
+        const { productList, order }: any = res.body;
+
+        this.cart.items = [];
+        this.order.orderData = productList;
+        this.order.orderTotal = this.cart.cartTotal;
+        this.order.customerData = order;
+        this.router.navigate(['/order']);
+        return;
       }
-    );
+    });
+  }
+
+  private ObjectFromEntries(arr: Array<Array<any>>): Order {
+    const temp: any = {};
+    arr.forEach(([name, value]) => (temp[name] = value));
+    return temp;
   }
 }

@@ -4,7 +4,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { CartService } from './cart.service';
 
-describe('CartService', () => {
+fdescribe('CartService', () => {
   let service: CartService;
   const testProduct = {
     id: '1',
@@ -34,7 +34,7 @@ describe('CartService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should be of length 1', () => {
+  it('should be of length 1 when adding a product to the cart', () => {
     service.addToCart(testProduct);
     expect(service.items.length).toBe(1);
   });
@@ -51,6 +51,7 @@ describe('CartService', () => {
 
     expect(service.items[0]).toBeTruthy();
     expect(service.items[0].units).toBe(3);
+    expect(service.items.length).toBe(1);
   });
 
   it('should add a product and then change the ammount of units of the product', () => {
