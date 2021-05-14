@@ -22,61 +22,25 @@
       </h1>
       <div class="items-center h-10 hidden md:flex relative">
         <div
-          tabindex="0"
-          class="
-            rounded-tl-full
-            cursor-pointer
-            select-none
-            rounded-bl-full
-            px-3
-            bg-gray-100
-            text-black
-            py-2
-            h-full
-            flex
-            items-center
-          "
-          (focus)="toggleCategoriesView(true)"
-          (focusout)="toggleCategoriesView(false)"
-        >
+          class="rounded-tl-full cursor-pointer select-none rounded-bl-full px-3 bg-gray-100 text-black py-2 h-full flex items-center"
+          (click)="toggleCategoriesView($event)">
           <p>All Categories</p>
 
           <p class="p-2"><i class="fas fa-caret-down text-gray-400"></i></p>
         </div>
-        <div
-          *ngIf="showCategories"
-          class="
-            w-full
-            h-60
-            p-3
-            absolute
-            left-0
-            top-11
-            rounded-md rounded-tl-none
-            shadow-lg
-            z-40
-            bg-gray-50
-          "
-        >
+        <div *ngIf="showCategories"
+          class="w-full h-60 p-3 absolute left-0 top-11 rounded-md rounded-tl-none shadow-lg z-40 bg-gray-50">
           <p class="font-bold text-xl text-gray-700">Collections</p>
           <div class="grid grid-flow-col gap-x-4 grid-cols-3 grid-rows-6">
-            <a
-              [routerLink]="['/collections', collection.id]"
-              *ngFor="let collection of collections"
-              class="text-gray-600 cursor-pointer hover:text-red-500 inline"
-            >
+            <a [routerLink]=" ['/collections', collection.id]" *ngFor="let collection of collections"
+              class="text-gray-600 cursor-pointer hover:text-red-500 inline" (click)="toggleCategoriesView($event)">
               {{ collection.name }}
             </a>
           </div>
         </div>
-        <input
-          class="px-3 py-1 w-64 outline-none rounded-none h-full text-gray-800"
-          placeholder="Search item"
-          (keydown)="setSearchValue($event)"
-        />
-        <div
-          tabindex="0"
-          class="
+        <input class=" px-3 py-1 w-64 outline-none rounded-none h-full text-gray-800" placeholder="Search item"
+          (keydown)="setSearchValue($event)" />
+        <div tabindex="0" class="
             bg-red-500
             h-full
             text-white text-center
@@ -85,9 +49,7 @@
             rounded-tr-full rounded-br-full
             cursor-pointer
             hover:bg-red-600
-          "
-          (click)="searchProduct()"
-        >
+          " (click)="searchProduct()">
           <p>Search</p>
         </div>
       </div>
@@ -96,8 +58,7 @@
         <div class="w-8 h-8">
           <a [routerLink]="['cart']" class="relative">
             <i class="fas fa-shopping-cart text-xl z-20 absolute"> </i>
-            <span
-              class="
+            <span class="
                 absolute
                 left-1
                 -top-3
@@ -108,9 +69,7 @@
                 text-sm text-center
                 w-6
                 h-6
-              "
-              >{{ cart.items.length }}</span
-            >
+              ">{{ cart.items.length }}</span>
           </a>
         </div>
       </div>

@@ -21,9 +21,13 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     public cart: CartService,
     private http: HttpClient
-  ) {}
+  ) {
+    this.route.params.subscribe(() => this.fetchData());
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  fetchData() {
     this.routeId = this.route.snapshot.params['id'];
 
     this.response = this.http.get(BASE_ROOT + `/products/${this.routeId}`);
@@ -38,6 +42,14 @@ export class ProductComponent implements OnInit {
   }
 
   setNumberOfUnits(qty: number): void {
-    if (this.product) this.product.units = qty;
+    // For some reason some times qty will be a number string (i.e. "2")
+    // So to compensate for that we will parse it back into a string
+    if (typeof qty === 'string') {
+      try {
+        if (this.product) this.product.units = parseInt(qty);
+      } catch (err) {
+        console.log(err);
+      }
+    } else if (this.product) this.product.units = qty;
   }
 }

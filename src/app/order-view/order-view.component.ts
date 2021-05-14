@@ -17,9 +17,12 @@ export class OrderViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('From order view', this.order.orderTotal);
     this.orderPlaced = this.cart.orderPlaced;
     if (!this.cart.orderPlaced) {
       this.router.navigate(['/']);
+    } else {
+      this.orderPlaced = false; // <-- Once viewed the user cannot come back to this page
     }
   }
 }

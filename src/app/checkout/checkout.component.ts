@@ -6,9 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../order.service';
 import { HttpClient } from '@angular/common/http';
 import { BASE_ROOT } from 'src/localconfig';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { Order, Product } from 'src/types';
+import { Order } from 'src/types';
 
 @Component({
   selector: 'app-checkout',
@@ -62,7 +60,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder() {
-    if (this.myForm.invalid || this.cart.orderPlaced) {
+    if (this.myForm.invalid) {
       this.tostr.error('Invalid Input or order already placed');
       return;
     }
@@ -93,20 +91,19 @@ export class CheckoutComponent implements OnInit {
     });
 
     observerResponse.subscribe((res) => {
-      console.log(res.body);
       if (res.status < 300 && res.status >= 200) {
-        this.cart.orderPlaced = true;
         this.tostr.success(
           'We will now proceed to validate your data',
           'Order accepted'
         );
+        this.cart.orderPlaced = true;
 
-        const { productList, order }: any = res.body;
+        const { products, orderData }: any = res.body;
 
         this.cart.items = [];
-        this.order.orderData = productList;
+        this.order.orderData = products;
         this.order.orderTotal = this.cart.cartTotal;
-        this.order.customerData = order;
+        this.order.customerData = orderData;
         this.router.navigate(['/order']);
         return;
       }

@@ -6,7 +6,7 @@
     And thank you
     <span class="text-green-500 font-bold">{{
       order.customerData?.firstName
-    }}</span>
+      }}</span>
     for your purchase
   </p>
   <h2 class="text-xl text-center text-gray-600">
@@ -27,7 +27,7 @@
     <tr *ngFor="let product of order.orderData" class="item">
       <td>{{ product.title }}</td>
       <td class="text-center font-bold">
-        {{ product.units }}
+        {{ ammount }}
       </td>
       <td class="text-center font-bold">
         {{ product.price | currency: "USD" }}

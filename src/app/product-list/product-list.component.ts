@@ -18,9 +18,7 @@ export class ProductListComponent implements OnInit {
     this.route.queryParams.subscribe(() => this.fetchData()); // Will force data to be fetched again on paramquery change
   }
 
-  ngOnInit(): void {
-    this.fetchData();
-  }
+  ngOnInit(): void {}
 
   private fetchData() {
     this.isPageLoading = true;
@@ -45,6 +43,7 @@ export class ProductListComponent implements OnInit {
     let fetchUrl = '';
 
     const { product, collection } = this.route.snapshot.queryParams;
+    console.log(this.route.snapshot.queryParams);
     // Only allow for one param at a time for now
     if (product) fetchUrl = `/products?product=${product}`;
     if (collection) fetchUrl = `/products?collection=${collection}`;

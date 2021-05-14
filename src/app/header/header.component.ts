@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     private collectionService: CollectionsService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.collectionService.collectionsArray.subscribe(
       (res: Array<Collection>) => {
@@ -36,8 +37,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  toggleCategoriesView(value?: boolean): void {
-    this.showCategories = value;
+  toggleCategoriesView(event): void {
+    this.showCategories = !this.showCategories;
   }
 
   searchProduct() {

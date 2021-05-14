@@ -13,7 +13,7 @@ export class CartService {
   constructor(private tostr: ToastrService) {}
 
   // Gives me full control on when data will change
-  private setItems(items): void {
+  private setItems(items: Array<Product>): void {
     this.items = items;
     this.cartTotal = this.getTotal();
   }
@@ -24,22 +24,22 @@ export class CartService {
     const itemExistsOnCart = indexOfItem !== -1;
 
     if (itemExistsOnCart) {
-      this.addUnitToProduct(item);
+      this.addUnitToProduct(item, units);
     } else
       this.setItems([
         ...itemsList,
-        { ...item, units, unitsInStock: item.units },
-      ]);
+        { ...item, units, unitsInStock: item.units }, // Backend uses units as 'Units in stock'
+      ]); // Whereas 'units' in this case is referred to the ammount of units that will be orderer by the client
 
     this.tostr.success('Product added successfully');
   }
 
-  addUnitToProduct(item: Product): void {
+  addUnitToProduct(item: Product, units: number = 1): void {
     if (item.units >= item.unitsInStock) return; // Prevents to add beyond the limit
     const indexOfItem = this.items.findIndex((each) => each.id === item.id);
-    const itemsList = [...this.items];
+    const itemsList: Product[] = [...this.items];
 
-    itemsList[indexOfItem].units += 1;
+    itemsList[indexOfItem].units += units;
     this.setItems([...itemsList]);
   }
 
